@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import cv2
-from flask import Flask, flash, request, redirect, url_for, send_from_directory
+from flask import Flask, flash, request, redirect, url_for, send_from_directory, render_template
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = './files'
@@ -40,16 +40,8 @@ def upload_file():
 
             cv2.imwrite(os.path.join(app.config['UPLOAD_FOLDER'], filename), equal)
             return redirect(url_for('download_file', name=filename))
-    return '''
-    <!doctype html>
-    <title>Upload new File</title>
-    <style>h1 { color: red } </style>
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
-      <input type=file name=file>
-      <input type=submit value=Upload>
-    </form>
-    '''
+    return render_template('index.html')
+    
 @app.route('/uploads/<name>')
 def download_file(name):
     return send_from_directory(app.config["UPLOAD_FOLDER"], name)
