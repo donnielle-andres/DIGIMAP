@@ -32,9 +32,6 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
             newFile = cv2.imread(os.path.join(app.config['UPLOAD_FOLDER'], filename), 0)
-            #kernel = np.ones((5, 5), np.float32) / 25
-            #high = cv2.GaussianBlur(newFile, (21, 21), 3) + 127
-            #low = newFile - high
 
             equal = cv2.equalizeHist(newFile)
 
