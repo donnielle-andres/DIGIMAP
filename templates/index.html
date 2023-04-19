@@ -142,11 +142,17 @@
           <div id="histo-block">
 
             <div id="histo-preview"> 
-              <img id="preview" src="" alt="Preview Image">           
+              {% if equalized_filename %}
+              <img id="preview" src="{{ url_for('download_equalized_file', name=equalized_filename) }}" alt="Preview Image"> 
+              {% endif %}         
             </div>
 
             <div id="download">
-              <button id="dwload-btn">  Download Image </button>
+              {% if equalized_filename %}
+              <a href="{{ url_for('download_equalized_file', name=equalized_filename) }}" download>
+                  <button id="dwload-btn">Download Image</button>
+              </a>
+              {% endif %}
             </div>
           </div>
 
@@ -158,6 +164,7 @@
     <script>
       const imageInput = document.getElementById('image');
       const previewImage = document.getElementById('preview');
+      const previewHisto = document.getElementById('histo-prev');
     
       imageInput.addEventListener('change', () => {
         const file = imageInput.files[0];
@@ -169,6 +176,17 @@
     
         reader.readAsDataURL(file);
       });
+
+      <!-- histo preview -->
+      // get the img tag element
+      const previewImg = document.getElementById("preview");
+
+      // get the filename of the equalized image
+      const equalizedFilename = "{{ name }}";
+
+      // set the image source to the equalized image
+      previewImg.src = `/uploads/${equalizedFilename}`;
+
     </script>
     
 </html>
