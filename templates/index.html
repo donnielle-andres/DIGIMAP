@@ -1,164 +1,196 @@
 <!doctype html>
+<title>Upload new File</title>
 
-<html>
-    <head lang="en">
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Proxima Nova", sans-serif;
+  }
 
-      <title>Upload new File</title>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    </head>
+  #header {
+    text-align: center;
+    position: absolute;
+    margin-top: 100px;
+  }
 
-    <style>
-        * {
-        margin: 0px;
-        padding: 0px;
-        font-family: "Proxima Nova", sans-serif;
-      }
+  #display-Cont {
+    justify-content: center;
+    display: flex;
+    margin-top: 30px;
+  }
 
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+  #upload-block {
+    background: #D9D9D9;
+    box-shadow: 6px 10px 11px rgba(0, 0, 0, 0.25);
+    border-radius: 32px;
 
-      #header{
-        text-align: center;
-        position: absolute;
-        width: 866px;
-        height: 96px;
-        margin-top: 20px;
-      }
+    position: absolute;
+    padding: 40px;
+    width: 494px;
+    height: 500px;
+    left: 120px;
+    top: 130px;
+  }
 
-      #header h3{
-        font-family: 'Times New Roman', Times, serif;
-        font-weight: lighter;
-        text-align: center;
-        position: absolute;
-        width: 866px;
-        height: 96px;
-        margin-top: 10px;
-      }
+  #img-preview {
+    border: 2px solid black;
+    height: 470px;
+  }
 
-      #logo {
-        position: absolute;
-        width: 96px;
-        height: 96px;
-        left: -300px;
-        top: 0px;
-      }
+  #histo-preview {
+    border: 2px solid black;
+    height: 470px;
+  }
 
-      #Display-Cont{
-        justify-content: center;
-        display: flex;
-        margin-top: 110px;
-      }
+  img {
+    width: 491px;
+    height: 470px;
+  }
 
-      #Upload-Block{
-        background: #D9D9D9;
-        box-shadow: 6px 10px 11px rgba(0, 0, 0, 0.25);
-        border-radius: 32px;
+  #button {
+    position: absolute;
+    left: 20px;
+  }
 
-        position: absolute;
-        width: 494px;
-        height: 540px;
-        left: 200px;
-        top: 170px;
-      }
+  #button form {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    margin-left: 40px;
+  }
 
-      #Histo-Block{
-        background: #D9D9D9;
-        box-shadow: 6px 10px 11px rgba(0, 0, 0, 0.25);
-        border-radius: 32px;
+  input[type="file"] {
+    flex: 1;
+  }
 
-        position: absolute;
-        width: 494px;
-        height: 540px;
-        left: 830px;
-        top: 170px;
-      }
+  input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 160px;
+    height: 28px;
+    margin-left: 10px;
+    text-align: center;
+  }
 
-      button{
-        position: absolute;
-        width: 160px;
-        height: 28px;
-        top: 494px;
-        left: 155px;
-        color: white;
-        background: #320b4d;
-        box-shadow: 3px 7px 5px rgba(0, 0, 0, 0.25);
-        border-radius: 15px;
-      }
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
 
-      button :hover{
-        background-color: #8f14e0;
-      }
+  #histo-block {
+    background: #D9D9D9;
+    box-shadow: 6px 10px 11px rgba(0, 0, 0, 0.25);
+    border-radius: 32px;
 
+    position: absolute;
+    padding: 40px;
+    width: 494px;
+    height: 500px;
+    left: 830px;
+    top: 130px;
+  }
 
+  button {
+    position: absolute;
+    width: 160px;
+    height: 28px;
+    top: 530px;
+    left: 210px;
+    color: white;
+    background: #320b4d;
+    box-shadow: 3px 7px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+  }
+</style>
 
-      
+<body>
 
+  <div id="header">
+    <h1> Histogram Manipulation</h1>
+  </div>
 
+  <div id="display-cont">
 
-    </style>
+    <!-- LEFT -->
+    <div id="upload-block">
 
+      <div id="img-preview">
 
-
-    <body>
-
-      <div id="header"> 
-        <img id="logo" src="/templates/M.png"/>
-
-        <h1> Histogram Manipulation </h1>
-        <h3> Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-          nisi ut aliquip ex ea commodo consequat. </h3>
-
+        {% if equalized_filename %}
+        <img id="new" src="{{ url_for('download_equalized_file', name=filename) }}" alt="Preview Image">
+        {% else %}
+        <img id="preview" src="" alt="Preview Image" hidden>
+        {% endif %}
       </div>
 
-      <div id="Display-Cont"> 
-
-          <!-- Left -->
-          <div id="Upload-Block">
-
-            <!-- Image Display Here -->
-            <div id="Img-Block">
-              <!-- Click to Select Image from Files -->
-
-              <!-- Display Selected Image -->
-              <img src=""/>
-            </div>
-
-            <br>
-
-            <div id="Btn">
-              <button id="Upl-Btn"> Upload Image </button>
-            </div>
-
-          </div>
-
-          <!-- Right -->
-          <div id="Histo-Block">
-
-            <!-- Image Display Here -->
-            <div id="Img-Block">
-              <!-- Display Manipulated Image -->
-              <img src=""/>
-            </div>
-
-            <br>
-
-            <div id="Btn">
-              <button id="Dwl-Btn"> Download Image </button>
-            </div>
-
-          </div>
-
+      <div id="button">
+        <form method=post enctype=multipart/form-data>
+          <input id="image" type=file name=file>
+          <input type=submit value=Upload>
+        </form>
       </div>
-      
 
-    </body>
+    </div>
+
+    <!-- RIGHT -->
+    <div id="histo-block">
+
+      <div id="histo-preview">
+        {% if equalized_filename %}
+        <img id="final" src="{{ url_for('download_equalized_file', name=equalized_filename) }}" alt="Preview Image">
+        {% endif %}
+      </div>
+
+      <div id="download">
+        {% if equalized_filename %}
+        <a href="{{ url_for('download_equalized_file', name=equalized_filename) }}" download>
+          <button id="dwload-btn">Download Image</button>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+
+</body>
+
+
+<script>
+  const imageInput = document.getElementById('image');
+  const previewImage = document.getElementById('preview');
+  const previewHisto = document.getElementById('histo-prev');
+
+  imageInput.addEventListener('change', () => {
+    const file = imageInput.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener('load', () => {
+      previewImage.hidden = false;
+      previewImage.src = reader.result;
+    });
+
+    reader.readAsDataURL(file);
+  });
+
+  //histo preview 
+  // get the img tag element
+  const previewImg = document.getElementById("preview");
+
+  // get the filename of the equalized image
+  const newfilename = "{{ name }}";
+
+  // set the image source to the equalized image
+  previewImg.src = `/uploads/${newfilename}`;
+
+</script>
 
 </html>
